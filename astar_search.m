@@ -49,11 +49,11 @@ nodes = create_nodes_from_grid(grid_size, goal);
 
 %% Update initial state in list
 % TODO
-node_current.row = ???
-node_current.col = ???
-node_current.g = ??? % path cost from start node to node n
-node_current.h = ??? % estimated cost of the cheapest path from n to the goal - euclidean_distance_heuristics()
-node_current.f = ???
+node_current.row = start.row;
+node_current.col = start.col;
+node_current.g = 0; % path cost from start node to node n
+node_current.h = euclidean_distance_heuristics(start, goal); % estimated cost of the cheapest path from n to the goal - euclidean_distance_heuristics()
+node_current.f = node_current.g + node_current.h;
 node_current.predecessor = [0, 0]; % Start node has no predecessor --> Fill in non existent state [row, col] = [0, 0]
 
 % Update node in list
@@ -69,8 +69,8 @@ while ~isempty(open)
     % Tip: use sort_node_list(nodes, field_num) to sort a list of nodes
     % based on particular field (e.g. in this case node.f)
     % TODO
-    open = sort_node_list(???)
-    node_current = ???
+    open = sort_node_list(open, 5);
+    node_current = open(1);
     
     if (check_if_node_is_solution(node_current, goal))
         closed = [closed, node_current];
@@ -80,7 +80,7 @@ while ~isempty(open)
     
     % set successor_current_cost
     % TODO
-    successor_current_cost = ??? % all state transitions have the same cost of 1
+    successor_current_cost = node_current.g + 1; % all state transitions have the same cost of 1
     
     % loop through all possible actions (U, D, L, R) (or in other words
     % successors)
@@ -92,27 +92,27 @@ while ~isempty(open)
             
             % get successor by making copy from nodes list
             % TODO
-            node_successor = nodes(sub2ind( ??? )
+            node_successor = nodes(sub2ind( ? , node_current.row + actions(1,a), node_current.col + actions(2,a)));
             
             % successor could either be in the open list, closed list or in
             % no list ...
             
-            if % in open list...
-                if ??? % algorithm line 10 
+            if check_if_in_node_list(node_current, open)% in open list...
+                if check_if_node_is_solution(node_current, goal) % algorithm line 10 
                     continue % at line 20
                 end
-            elseif % in closed list...
-                if ??? % algorithm line 12
+            elseif check_if_in_node_list(node_current, closed) % in closed list...
+                if check_if_node_is_solution(node_current, goal) % algorithm line 12
                     continue % at line 20
                 end
                 % move node_successor back from closed to open list
-                open = ???
+                open = [open node_successor];
                 % TODO: remove from closed list
                 ???
             else
                 % in case the node was not encountered before...
                 % add node to the open list
-                open = ???
+                open = [open node_current];
                 % ignore line 16 --> already handled in create_nodes_from_grid()
             end
             

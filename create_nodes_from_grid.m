@@ -23,18 +23,18 @@ function node_list = create_nodes_from_grid(grid_size, goal)
 
     %% TODO: Implementation
     node_list = [];
-    for c = ??? % loop through cols of grid
-        for r = ??? % loop through rows grid
+    for c = 1:grid_size % loop through cols of grid
+        for r = 1:grid_size % loop through rows grid
             % 1. initialize the new node
-            node.row = ???
-            node.col = ???
-            node.g = ??? % initial path cost from start node to current node with infinity
+            node.row = r;
+            node.col = c;
+            node.g = inf; % initial path cost from start node to current node with infinity
             % estimated cost of the cheapest path to the goal
-            node.h = ??? % use euclidean_distance_heuristics()
-            node.f = ???
+            node.h = euclidean_distance_heuristics(node,goal); % use euclidean_distance_heuristics()
+            node.f = node.g + node.h;
             node.predecessor = [0 0]; % init with element which does not exist
             % 2. Add it to the list of nodes
-            node_list = ??? % add node to the existing list
+            node_list = [node_list node]; % add node to the existing list
         end
     end
 

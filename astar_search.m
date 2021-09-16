@@ -108,7 +108,7 @@ while ~isempty(open)
                 % move node_successor back from closed to open list
                 open = [open node_successor];
                 % TODO: remove from closed list
-                close(index2) = [];
+                close(end) = [];
             else
                 % in case the node was not encountered before...
                 % add node to the open list

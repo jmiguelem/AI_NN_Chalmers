@@ -22,7 +22,7 @@ function solution = check_if_node_is_solution(node, goal)
 % type --> int (0 = false, 1 = true)
 
     %% TODO: check if node is goal and return either true or false (0 = false, 1 = true)    
-    if node.row == goal.row && node.column == goal.column 
+    if node.row == goal.row && node.col == goal.col 
         solution = 1;
     else 
         solution = 0;

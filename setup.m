@@ -46,3 +46,12 @@ exploredA = astar_search(grid_size, start, goal, obstacle);
 %% 4. To find path traverse back from goal to start using the node.predecessor
 %path = reconstruct_path(exploredBF, start, goal);
 
+
+% Try reconstruct when we didnt reach the start
+% node1.row = 1; node1.col = 2; node1.predecessor = [3,3];
+% 
+% node2.row = 2; node2.col = 3; node2.predecessor = [1, 2];
+% node3.row = 4; node3.col = 4; node3.predecessor = [2, 3];
+% 
+% explored = [node3 node2 node1];
+

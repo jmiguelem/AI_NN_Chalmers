@@ -89,7 +89,7 @@ while goal_not_found
             child.row = node.row + actions(1,a);
             child.col = node.col + actions(2,a);
             child.depth = node.depth + 1;
-            child.predecessor = node;
+            child.predecessor = [node.row node.col];
             
             % check if child is already in frontier or already explored
             if ~(check_if_in_node_list(child, frontier)||check_if_in_node_list(child, explored)) % TODO: use check_if_in_node_list() to check if node not in frontier list or in explored list 

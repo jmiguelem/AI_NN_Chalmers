@@ -31,7 +31,7 @@ else
        % TODO: check if node is equal to list element based on row and col
        if node.row == node_list(index).row && node.col == node_list(index).col
             in_list = 1;
-            ind = index
+            ind = index;
        %end
     end
 end

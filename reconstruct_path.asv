@@ -39,7 +39,7 @@ function path = reconstruct_path(explored, start, goal)
 %% Implementation TODO
 
 % TODO: start the path from the goal node
-path = [goal.row; goal.col];
+path = goal;
 % instantly return if goal is start
 if goal.row == start.row && goal.col == start.col
     return 
@@ -47,20 +47,18 @@ end
 
 
 reached_start = 0;
-while ~reached_start% not reached start
+while not reached_start% not reached start
     found_predecessor = 0 % boolean that is set to 1 if any predecessor could be found for the current node (only required for the case that no path can be found) 
     % TODO
     for expl = explored % loop through the explored list
-        disp(expl)
         if find(expl == path) % if node from explored list is the current path element, add its predecessor to the list
-            
             path = expl.predecessor; % always add path elements to the left side since we reconstruct from the goal
             found_predecessor = 1;
             break
         end
     end
     % TODO: check if path is complete --> terminate while loop
-    if path%%% path has reached the start node
+    if %%% path has reached the start node
         reached_start = 1
         disp('Found the path!')
     end

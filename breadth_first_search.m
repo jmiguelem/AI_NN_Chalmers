@@ -49,14 +49,14 @@ end
 
 % Move start node into frontier
 % TODO
-frontier = [frontier, node];
+frontier = [frontier node];
 
 goal_not_found = 1;
 while goal_not_found
     
     % check if frontier is empty
     %TODO
-    if size(frontier) == 0
+    if isempty(frontier)
         disp("Empty frontier list");
         return
     end
@@ -66,10 +66,6 @@ while goal_not_found
     % TODO
     frontier = sort_node_list(frontier, 3); % sort after depth field which is number 3 in node structure
     node = frontier(1); 
-    disp('Frontier')
-    disp(frontier)
-    disp('node')
-    disp(node)
     frontier(1) = []; % remove first element from frontier
     disp(frontier)
     

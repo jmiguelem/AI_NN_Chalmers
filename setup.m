@@ -41,10 +41,12 @@ exploredBF = breadth_first_search(grid_size, start, goal, obstacle);
 % node.h estimated cost of the cheapest path from n to the goal
 % node.f = node.g + node.h;
 % node.predecessor
-exploredA = astar_search(grid_size, start, goal, obstacle);
+%exploredA = astar_search(grid_size, start, goal, obstacle);
  
 %% 4. To find path traverse back from goal to start using the node.predecessor
-%path = reconstruct_path(exploredBF, start, goal);
+path = reconstruct_path(exploredBF, start, goal);
+%disp('path');
+%disp(path)
 
 
 % Try reconstruct when we didnt reach the start

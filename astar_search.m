@@ -60,7 +60,7 @@ node_current.predecessor = [0, 0]; % Start node has no predecessor --> Fill in n
 nodes(sub2ind(size(obstacle_map), start.row, start.col)) = node_current;
 
 %% Put initial state into the OPEN list with f(node_start) = h(node_start)
-open = node_current;
+open = [open node_current];
 
 %% 
 while ~isempty(open) 
@@ -73,7 +73,7 @@ while ~isempty(open)
     node_current = open(1);
     
     if (check_if_node_is_solution(node_current, goal))
-        closed = [closed, node_current];
+        close = [close, node_current];
         disp('Found the Goal!')
         return
     end
@@ -92,42 +92,45 @@ while ~isempty(open)
             
             % get successor by making copy from nodes list
             % TODO
-            node_successor = nodes(sub2ind( ? , node_current.row + actions(1,a), node_current.col + actions(2,a)));
+            node_successor = nodes(sub2ind(size(obstacle_map), node_current.row + actions(1,a), node_current.col + actions(2,a)));
             
             % successor could either be in the open list, closed list or in
             % no list ...
             
-            if check_if_in_node_list(node_current, open)% in open list...
-                if check_if_node_is_solution(node_current, goal) % algorithm line 10 
+            check_open, index1 = check_if_in_node_list(node_current, open);
+            check_close, index2 = check_if_in_node_list(node_current, close)
+            
+            if check_open % in open list...
+                if node_successor.g <= successor_current_cost % algorithm line 10 
                     continue % at line 20
                 end
-            elseif check_if_in_node_list(node_current, closed) % in closed list...
-                if check_if_node_is_solution(node_current, goal) % algorithm line 12
+            elseif check_close % in closed list...
+                if node_successor.g <= successor_current_cost % algorithm line 12
                     continue % at line 20
                 end
                 % move node_successor back from closed to open list
                 open = [open node_successor];
                 % TODO: remove from closed list
-                ???
+                close(index2) = [];
             else
                 % in case the node was not encountered before...
                 % add node to the open list
-                open = [open node_current];
+                open = [open node_successor];
                 % ignore line 16 --> already handled in create_nodes_from_grid()
             end
             
             % Update the node parameters in the list
             % 1. Set the new cost g and update f accordingly
-            nodes(sub2ind(???)).g = ???
-            nodes(sub2ind(???)).f = ???
+            nodes(sub2ind(size(obstacle_map), node_successor.row, node_successor.col)).g = successor_current_cost;
+            nodes(sub2ind(size(obstacle_map), node_successor.row, node_successor.col)).f = nodes(sub2ind(size(obstacle_map), node_successor.row, node_successor.col)).h + nodes(sub2ind(size(obstacle_map), node_successor.row, node_successor.col)).g;
             
             % 2. set the parent of node_successpr to node_current
-            nodes(sub2ind(???)).predecessor = ???
+            nodes(sub2ind(size(obstacle_map), node_successor.row, node_successor.col)).predecessor = [node_current.row node_current.col];
                      
             % also update the node_successor in the open list
             [ex, ind] = check_if_in_node_list(node_successor, open);
             if ex
-                open(ind) = ???
+                open(ind) = nodes(sub2ind(size(obstacle_map), node_successor.row, node_successor.col));
             end
             
         end
@@ -136,8 +139,10 @@ while ~isempty(open)
     % after all successor states have been considered for current_node
     % TODO
     % 1. Remove from open list
+    [check_open2, index3] = check_if_in_node_list(node_current, open);
+    open(index3) = [];
     % 2. Add to closed list
-    
+    close = [close node_current];
 end
 
 % ignore last line of pseudo code (l. 23)

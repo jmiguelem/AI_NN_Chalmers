@@ -10,5 +10,5 @@ function distance = euclidean_distance_heuristics(current, goal)
 % type --> double/float
 
 %% TODO: Implementation
-distance = sqrt((current(1)-goal(1))^2 + (current(2)-goal(2))^2);
+distance = sqrt((current.row-goal.row)^2 + (current.col-goal.col)^2);
 end

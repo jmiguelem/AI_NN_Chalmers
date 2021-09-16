@@ -65,6 +65,10 @@ while goal_not_found == 1
     % TODO
     frontier = sort_node_list(frontier, 3); % sort after depth field which is number 3 in node structure
     node = frontier(1); 
+    disp('Frontier')
+    disp(frontier)
+    disp('node')
+    disp(node)
     frontier(1) = []; % remove first element from frontier
     disp(frontier)
     

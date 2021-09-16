@@ -97,8 +97,8 @@ while ~isempty(open)
             % successor could either be in the open list, closed list or in
             % no list ...
             
-            check_open, index1 = check_if_in_node_list(node_current, open);
-            check_close, index2 = check_if_in_node_list(node_current, close)
+            [check_open, index1] = check_if_in_node_list(node_current, open);
+            [check_close, index2] = check_if_in_node_list(node_current, close)
             
             if check_open % in open list...
                 if node_successor.g <= successor_current_cost % algorithm line 10 

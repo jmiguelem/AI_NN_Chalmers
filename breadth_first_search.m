@@ -38,7 +38,7 @@ frontier = []; % nodes which are currently on frontier
 % TODO
 node.row = start.row;
 node.col = start.col;
-node.depth = 0;
+node.depth = 1;
 node.predecessor = [0 0]; % Start node has no predecessor --> Fill in non existent state [row, col] = [0, 0]
 
 % return from search if start node is the goal
@@ -52,11 +52,12 @@ end
 frontier = [frontier, node];
 
 goal_not_found = 1;
-while goal_not_found == 1
+while goal_not_found
     
     % check if frontier is empty
     %TODO
     if size(frontier) == 0
+        disp("Empty frontier list");
         return
     end
     
@@ -91,11 +92,11 @@ while goal_not_found == 1
             child.row = node.row + actions(1,a);
             child.col = node.col + actions(2,a);
             child.depth = node.depth + 1;
-            child.predecessor = node;
+            child.predecessor = [node.row node.col];
             
             % check if child is already in frontier or already explored
             if check_if_in_node_list(node, frontier) == 0 && check_if_in_node_list(node, explored) == 0 % TODO: use check_if_in_node_list() to check if node not in frontier list or in explored list 
-                if check_if_node_is_solution(child) == 1% TODO: use check_if_node_is_solution() to check if child is goal
+                if check_if_node_is_solution(child, goal) % TODO: use check_if_node_is_solution() to check if child is goal
                     goal_not_found = 0; % stop the while loop
                     explored = [explored, child]; % Technically goal is not explored but,
                     %we need to add it in order to be able to reconstruct

@@ -48,21 +48,20 @@ end
 
 reached_start = 0;
 while ~reached_start% not reached start
-    found_predecessor = 0 % boolean that is set to 1 if any predecessor could be found for the current node (only required for the case that no path can be found) 
+    found_predecessor = 0; % boolean that is set to 1 if any predecessor could be found for the current node (only required for the case that no path can be found) 
     % TODO
     for expl = explored % loop through the explored list
-        disp(expl)
-        if find(expl == path) % if node from explored list is the current path element, add its predecessor to the list
-            
-            path = expl.predecessor; % always add path elements to the left side since we reconstruct from the goal
+        if expl.row == path(1,1) && expl.col == path(2,1) % if node from explored list is the current path element, add its predecessor to the list
+            new = [expl.predecessor(1) ; expl.predecessor(2)];
+            path = [new path]; % always add path elements to the left side since we reconstruct from the goal
             found_predecessor = 1;
             break
         end
     end
     % TODO: check if path is complete --> terminate while loop
-    if path%%% path has reached the start node
-        reached_start = 1
-        disp('Found the path!')
+    if path(1,1) == start.row && path(2,1) == start.col%%% path has reached the start node
+        reached_start = 1;
+        disp('Found the path!');
     end
     
     % TODO: check if any solution is found, if not return empty path list

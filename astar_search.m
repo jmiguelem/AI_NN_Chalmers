@@ -52,7 +52,7 @@ nodes = create_nodes_from_grid(grid_size, goal);
 node_current.row = start.row;
 node_current.col = start.col;
 node_current.g = 0; % path cost from start node to node n
-node_current.h = euclidean_distance_heuristics(start, goal); % estimated cost of the cheapest path from n to the goal - euclidean_distance_heuristics()
+node_current.h = euclidean_distance_heuristics(node_current, goal); % estimated cost of the cheapest path from n to the goal - euclidean_distance_heuristics()
 node_current.f = node_current.g + node_current.h;
 node_current.predecessor = [0, 0]; % Start node has no predecessor --> Fill in non existent state [row, col] = [0, 0]
 
@@ -60,7 +60,7 @@ node_current.predecessor = [0, 0]; % Start node has no predecessor --> Fill in n
 nodes(sub2ind(size(obstacle_map), start.row, start.col)) = node_current;
 
 %% Put initial state into the OPEN list with f(node_start) = h(node_start)
-open = [open node_current];
+open = node_current;
 
 %% 
 while ~isempty(open) 
@@ -97,14 +97,11 @@ while ~isempty(open)
             % successor could either be in the open list, closed list or in
             % no list ...
             
-            [check_open, index1] = check_if_in_node_list(node_current, open);
-            [check_close, index2] = check_if_in_node_list(node_current, close)
-            
-            if check_open % in open list...
+            if check_if_in_node_list(node_successor, open) % in open list...
                 if node_successor.g <= successor_current_cost % algorithm line 10 
                     continue % at line 20
                 end
-            elseif check_close % in closed list...
+            elseif check_if_in_node_list(node_successor, close) % in closed list...
                 if node_successor.g <= successor_current_cost % algorithm line 12
                     continue % at line 20
                 end
@@ -122,10 +119,10 @@ while ~isempty(open)
             % Update the node parameters in the list
             % 1. Set the new cost g and update f accordingly
             nodes(sub2ind(size(obstacle_map), node_successor.row, node_successor.col)).g = successor_current_cost;
-            nodes(sub2ind(size(obstacle_map), node_successor.row, node_successor.col)).f = nodes(sub2ind(size(obstacle_map), node_successor.row, node_successor.col)).h + nodes(sub2ind(size(obstacle_map), node_successor.row, node_successor.col)).g;
+            nodes(sub2ind(size(obstacle_map), node_successor.row, node_successor.col)).f = nodes(sub2ind(size(obstacle_map), node_successor.row, node_successor.col)).h + successor_current_cost;
             
             % 2. set the parent of node_successpr to node_current
-            nodes(sub2ind(size(obstacle_map), node_successor.row, node_successor.col)).predecessor = [node_current.row node_current.col];
+            nodes(sub2ind(size(obstacle_map), node_successor.row, node_successor.col)).predecessor = node_current;
                      
             % also update the node_successor in the open list
             [ex, ind] = check_if_in_node_list(node_successor, open);
@@ -139,8 +136,8 @@ while ~isempty(open)
     % after all successor states have been considered for current_node
     % TODO
     % 1. Remove from open list
-    [check_open2, index3] = check_if_in_node_list(node_current, open);
-    open(index3) = [];
+    
+    open(1) = [];
     % 2. Add to closed list
     close = [close node_current];
 end

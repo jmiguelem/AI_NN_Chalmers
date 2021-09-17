@@ -12,3 +12,5 @@
 - create_nodes_from_grid.m: only required for A* algorithm; initializes a list of all grid cells which is going to save information regarding the g,h,f cost and the currently best predecessor
 - euclidean_distance_heuristics.m: function that calculates the euclidean distance between current cell and goal cell in the grid
 
+##Instructions
+In the matlab termnial type setup and enter. This will run the BFS algorithm and the result, the A Star Algorithm and will also run the reconstruct paths for each algorithm. 

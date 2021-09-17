@@ -68,7 +68,7 @@ while goal_not_found
     frontier = sort_node_list(frontier, 3); % sort after depth field which is number 3 in node structure
     node = frontier(1); 
     frontier(1) = []; % remove first element from frontier
-    disp(frontier)
+    %disp(frontier)
     
     % add node to the list of explored nodes
     % TODO

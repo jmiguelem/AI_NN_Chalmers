@@ -122,7 +122,7 @@ while ~isempty(open)
             nodes(sub2ind(size(obstacle_map), node_successor.row, node_successor.col)).f = nodes(sub2ind(size(obstacle_map), node_successor.row, node_successor.col)).h + successor_current_cost;
             
             % 2. set the parent of node_successpr to node_current
-            nodes(sub2ind(size(obstacle_map), node_successor.row, node_successor.col)).predecessor = node_current;
+            nodes(sub2ind(size(obstacle_map), node_successor.row, node_successor.col)).predecessor = [node_current.row node_current.col];
                      
             % also update the node_successor in the open list
             [ex, ind] = check_if_in_node_list(node_successor, open);

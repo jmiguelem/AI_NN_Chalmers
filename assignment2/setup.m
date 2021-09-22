@@ -54,7 +54,7 @@ for it = 1:length(goals)
 end
 
 % Set the parameters for the q learning algorithm
-num_episodes = 10000;
+num_episodes = 50000;
 epsilon = 0.01;
 alpha = 0.1;
 gamma = 0.9;
@@ -73,10 +73,16 @@ for i = 1:mean_range:length(rewards)-mean_range
 end
 % TODO: plot rewards and mean rewards
 
+mean_reward = figure(1);
+plot(mean_diffs);
+xlabel('Episode');
+ylabel('Mean of diffs in Q');
+title('Average Max Q Diff');
+
 
 %% 4. Testing
 % define start position of the robot and the environment
 % e.g. robot is located at [5, 5], the object is locates at 'A' = 1 and the
 % goal is 'D' = 4
 s_start = [5, 5, 1, 4];
-steps = test_q_table(q_table, s_start, goals, grid, state_params, obstacles);
+% steps = test_q_table(q_table, s_start, goals, grid, state_params, obstacles);

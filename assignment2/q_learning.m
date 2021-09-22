@@ -78,7 +78,7 @@ function [q_table, rewards, q_diffs] = q_learning(state_params, obstacles, goals
             
 %           % TODO: get biggest difference between q_table elements in
 %           consecutive q-tables (between q_table and q_old)
-            max_diff = max(abs(q_table-q_old)); % Tip: use the max() and abs() functions () (consult the matlab documentation in case you have questions about its usage)
+            max_diff = max(max(abs(q_table(:,:)-q_old(:,:)))); % Tip: use the max() and abs() functions () (consult the matlab documentation in case you have questions about its usage)
             q_diffs = [q_diffs, max_diff];
     
         % save episode rewards

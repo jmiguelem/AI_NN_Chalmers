@@ -27,15 +27,15 @@ function [current_row, current_col, current_obj, current_goal] = initialize_robo
     while hit_obstacle % repeat until you have drawn a row/col which is not an obstacle
         % TODO: draw two random initial values within the boundaries of the
         % grid for the row and the col position
-        position = randi( ??? ); % Tip: look for the randi function in the documentation to figure out how it works 
-        current_row = ???
-        current_col = ???
+        position = randi(6, 1, 2); % Tip: look for the randi function in the documentation to figure out how it works 
+        current_row = position(1);
+        current_col = position(2);
         
         hit_obstacle = 0; % do not continue with the while if random position is not an obstacle   
         if ~isempty(obstacles) 
             % TODO
-            for ??? % loop through the obstacles
-                if ??? % check if the init_pos is an obstacle
+            for o = 1:length(obstacles) % loop through the obstacles
+                if current_row == obstacles(1,o) && current_col == obstacles(2,o)  % check if the init_pos is an obstacle
                     hit_obstacle = 1;
                 end
             end
@@ -43,9 +43,9 @@ function [current_row, current_col, current_obj, current_goal] = initialize_robo
     end
     
     % TODO: initial pick-up and drop-off position
-    pick_and_drop_pos = randi( ??? );
-    current_obj = ??? 
-    current_goal = ???
+    pick_and_drop_pos = randi(4, 1, 2);
+    current_obj = pick_and_drop_pos(1); 
+    current_goal = pick_and_drop_pos(2);
     
     
 end

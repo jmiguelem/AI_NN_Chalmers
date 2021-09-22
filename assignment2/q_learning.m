@@ -36,7 +36,7 @@ function [q_table, rewards, q_diffs] = q_learning(state_params, obstacles, goals
 
     %% 1. Init the q_table 
     % TODO:
-    q_table = ??? % use initialize_q_table function
+    q_table = initialize_q_table(state_params); % use initialize_q_table function
     
     rewards = []; % list that will save the episode rewards
     q_diffs = []; % list that will save q-table differences between episodes
@@ -46,7 +46,7 @@ function [q_table, rewards, q_diffs] = q_learning(state_params, obstacles, goals
         % randomly init the start state S with help of the
         % initialize_robot()
         % function
-        [current_row, current_col, current_obj, current_goal] = ??? % use the initialize_robot function
+        [current_row, current_col, current_obj, current_goal] = initialize_robot(state_params, obstacles); % use the initialize_robot function
         s_current = [current_row, current_col, current_obj, current_goal];
         terminate_episode = 0; % to terminate while loop when episode is finished
         running_reward = 0; % counts the episode reward
@@ -54,16 +54,16 @@ function [q_table, rewards, q_diffs] = q_learning(state_params, obstacles, goals
         
         while ~terminate_episode % as long as episode is not terminated
             % TODO: choose an greedily derived action (epsilon_greedy_action())
-            a_current = ???
+            a_current = epsilon_greedy_action(q_table, s_current, epsilon, state_params);
             
             % TODO: perform one step update; get the next state and
             % reward (perform_one_step())
-            [r, s_next] = ???
+            [r, s_next] = perform_one_step(s_current, a_current, goals, state_params, obstacles);
             
             % update q-table
             % Task: 2 (deterministic update rule): update_q_table_det()
             % Task: 6 (non-deterministic update rule): update_q_table_gen()
-            q_table = ??? 
+            q_table = update_q_table_det(q_old, s_current, a_current, r, s_next, gamma, state_params); 
             
             s_current = s_next;
                        
@@ -78,7 +78,7 @@ function [q_table, rewards, q_diffs] = q_learning(state_params, obstacles, goals
             
 %           % TODO: get biggest difference between q_table elements in
 %           consecutive q-tables (between q_table and q_old)
-            max_diff = ??? % Tip: use the max() and abs() functions () (consult the matlab documentation in case you have questions about its usage)
+            max_diff = max(abs(q_table-q_old)); % Tip: use the max() and abs() functions () (consult the matlab documentation in case you have questions about its usage)
             q_diffs = [q_diffs, max_diff];
     
         % save episode rewards

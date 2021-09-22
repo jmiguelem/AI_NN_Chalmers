@@ -47,6 +47,7 @@ function q_table_out = update_q_table_det(q_table_in, s_current, a_current, r, s
     
     % TODO: Update the q-table
     %Q(S,a) -> r + y * max(nextS, nextA)
+    maxState = max(q_table_in(ind_next,:));
     q_table_out = q_table_in;
-    q_table_out(s_current(1), a_current) = r + gamma * q_table_in(ind_next, a_current);
+    q_table_out(ind_cur, a_current) = r + gamma * maxState;
 end

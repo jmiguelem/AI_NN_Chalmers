@@ -35,7 +35,7 @@ function action = epsilon_greedy_action(q_table, s_current, epsilon, state_param
     % take optimal action
     % retrieve the q-table vector for all possible actions given s_current
     ind_q = sub2ind([state_params(1) state_params(1) state_params(2) state_params(3)], s_current(1), s_current(2), s_current(3), s_current(4)); % index of the current state in the q_table
-    q_table_s_current = q_table(ind_q); 
+    q_table_s_current = q_table(ind_q, :); 
     
     % TODO: get the max. q-value and corresponding action of
     % q_table_s_current
@@ -46,8 +46,7 @@ function action = epsilon_greedy_action(q_table, s_current, epsilon, state_param
     % TODO: case of exploration
     if prob_exploitation < epsilon % in case the prob for exploitation is smaller than epsilon
         while action == ind
-            disp('loop')
-            action = randi(state_params(4)); % TODO: draw a new action with help of randi 
+            action = randi(4, 1, 1); % TODO: draw a new action with help of randi 
         end
     end
     

@@ -79,4 +79,4 @@ end
 % e.g. robot is located at [5, 5], the object is locates at 'A' = 1 and the
 % goal is 'D' = 4
 s_start = [5, 5, 1, 4];
-steps = test_q_table(q_table, s_start, goals, grid, state_params, obstacles);
+%steps = test_q_table(q_table, s_start, goals, grid, state_params, obstacles);

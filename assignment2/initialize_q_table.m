@@ -12,7 +12,7 @@ grid_size = state_params(1);
 num_obj_pos = state_params(2);
 num_goal_pos = state_params(3);
 num_actions = state_params(4);
-num_states = grid_size * num_obj_pos * num_goal_pos * num_actions; % number of states
+num_states = grid_size * num_obj_pos * num_goal_pos * grid_size; % number of states
 q_table = zeros(num_states, num_actions);% have a look at the zeros function in the documentation to see how to use it
 
 end

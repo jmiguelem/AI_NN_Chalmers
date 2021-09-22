@@ -63,7 +63,7 @@ function [q_table, rewards, q_diffs] = q_learning(state_params, obstacles, goals
             % update q-table
             % Task: 2 (deterministic update rule): update_q_table_det()
             % Task: 6 (non-deterministic update rule): update_q_table_gen()
-            q_table = update_q_table_det(q_old, s_current, a_current, r, s_next, gamma, state_params); 
+            q_table = update_q_table_det(q_table, s_current, a_current, r, s_next, gamma, state_params); 
             
             s_current = s_next;
                        

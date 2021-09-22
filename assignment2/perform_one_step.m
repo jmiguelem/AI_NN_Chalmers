@@ -39,48 +39,47 @@ function [r, s_next] = perform_one_step(s_current, a_current, goals, state_param
 %  4 (= 'D'), 5 (= 'inGripper') )
 % s_next(4): drop-off goal position in form of an index (1 (= 'A'), 2 (= 'B'), 3 (= 'C'),
 %  4 (= 'D'))
-grid_size = state_params(1);
-% Obstacle Map
-obstacle_map = repmat('E', grid_size, grid_size);
-for it = 1:length(obstacles)
-    obstacle_map(obstacles(1,it), obstacles(2,it)) = 'O';
-end
 
 %% TODO: Implementation
         
     % TIP: you can again use the following action deterministic action
     % representation when coding the transitions
     a_move = [1, -1,  0, 0;
-              0,  0, -1, 1];
+              0,  0, 1, -1];
             
     % TODO
-    if a_current <= 4 % a_current is one of the movements (S, N, W, E)] 
-        if s_current(1)+a_move(1,a_current) > 0 && s_current(1)+a_move(1,a_current) < grid_size+1 && ...
-           s_current(2)+a_move(2,a_current) > 0 && s_current(2)+a_move(2,a_current) < grid_size+1 && ...
-           obstacle_map(s_current(1)+a_move(1,a_current), s_current(2)+a_move(2,a_current)) ~= 'O' % check if agents would bump into wall
-            r = -1;
-            s_next = s_current;
-            s_next(1) = s_next(1)+a_move(1, a_current);
-            s_next(2) = s_next(2)+a_move(2, a_current);
-        else % normal 1 step reward
+    obs = 0;
+    if a_current <= 4 % a_current is one of the movements (S, N, W, E)]
+        
+        for i=1:1:length(obstacles)
+            if (s_current(1)+a_move(1,a_current) == obstacles(1,i) && s_current(2)== obstacles(2,i)) || (s_current(1) == obstacles(1,i) && s_current(2)+a_move(2,a_current)== obstacles(2,i))
+                obs = 1;
+            end
+        end
+        
+        if  s_current(1)+ a_move(1,a_current) <= 0 || s_current(1)+a_move(1,a_current) > state_params(1) || s_current(2)+a_move(2,a_current) <= 0 || s_current(2)+a_move(2,a_current) > state_params(1)|| obs % check if agents would bump into wall
             r = -100;
             s_next = s_current;
-            
+        else % normal 1 step reward
+            r = -1;
+            s_next = [s_current(1)+a_move(1,a_current),s_current(2)+a_move(2,a_current),s_current(3),s_current(4)];
         end
     elseif a_current == 5 % action is pick up
-        disp('s_Current')
-        disp(s_current(3))
-        if s_current(1) == goals(1, s_current(3)) && s_current(2) == goals(2, s_current(3))
-            r = 0;
-            s_next = s_current;
-            s_next(3) = 5;
-        else % non-succesfull pickup
+        if s_current(3) ~= 5
+            if s_current(1) == goals(1,s_current(3)) && s_current(2) == goals(2,s_current(3))% succesfull pickup
+                r = -1;
+                s_next = [s_current(1),s_current(2),5,s_current(4)];
+            else % non-succesfull pickup
+                r = -10;
+                s_next = s_current;
+            end
+        else
             r = -10;
             s_next = s_current;
         end
-    elseif a_current == 6 % action is drop down
-        if s_current(1) == goals(1, s_current(4)) && s_current(2) == goals(2, s_current(4))
-            r = 20;     
+    elseif a_current == 6% action is drop down
+        if (s_current(1) == goals(1,s_current(4)) && s_current(2) == goals(2,s_current(4))) && s_current(3) == 5% succesfull drop down
+            r = 20;          
             s_next = s_current; % no next state is required since episode is finished after
             % that step so simply set it to current state
         else % non-succesfull drop down

@@ -57,19 +57,17 @@ end
     if a_current <= 4 % a_current is one of the movements (S, N, W, E)] 
         if s_current(1)+a_move(1,a_current) > 0 && s_current(1)+a_move(1,a_current) < grid_size+1 && ...
            s_current(2)+a_move(2,a_current) > 0 && s_current(2)+a_move(2,a_current) < grid_size+1 && ...
-           obstacle_map(s_current(1)+a_move(1,a_current), s_current(2)+a_move(2,a_current)) ~= 'O' % check if agents would bump into wall
+           obstacle_map(node.row+a_move(1,a_current), node.col+a_move(2,a_current)) ~= 'O' % check if agents would bump into wall
             r = -1;
             s_next = s_current;
-            s_next(1) = s_next(1)+a_move(1, a_current);
-            s_next(2) = s_next(2)+a_move(2, a_current);
+            s_next(1) = s_next(1)+actions(1, a_move);
+            s_next(2) = s_next(2)+actions(2, a_move);
         else % normal 1 step reward
             r = -100;
             s_next = s_current;
             
         end
     elseif a_current == 5 % action is pick up
-        disp('s_Current')
-        disp(s_current(3))
         if s_current(1) == goals(1, s_current(3)) && s_current(2) == goals(2, s_current(3))
             r = 0;
             s_next = s_current;

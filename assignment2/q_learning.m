@@ -86,8 +86,8 @@ function [q_table, rewards, q_diffs] = q_learning(state_params, obstacles, goals
         
         % print out current episode after every 100 episodes during the
         % training
-        if mod(num_e, 100) == 0
-            disp(['Episode: ', int2str(num_e)])
+        if mod(ep, 100) == 0
+            disp(['Episode: ', int2str(ep)])
         end
     end 
 end

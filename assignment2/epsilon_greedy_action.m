@@ -39,13 +39,14 @@ function action = epsilon_greedy_action(q_table, s_current, epsilon, state_param
     
     % TODO: get the max. q-value and corresponding action of
     % q_table_s_current
-    [max_num, ind] = max(q_table_s_current)% Tip: use the max() function (consult the matlab documentation in case you have questions about its usage)
+    [max_num, ind] = max(q_table_s_current);% Tip: use the max() function (consult the matlab documentation in case you have questions about its usage)
     action = ind;
     
     
     % TODO: case of exploration
     if prob_exploitation < epsilon % in case the prob for exploitation is smaller than epsilon
         while action == ind
+            disp('loop')
             action = randi(state_params(4)); % TODO: draw a new action with help of randi 
         end
     end

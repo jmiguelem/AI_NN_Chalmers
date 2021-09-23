@@ -54,8 +54,8 @@ for it = 1:length(goals)
 end
 
 % Set the parameters for the q learning algorithm
-num_episodes = 50000;
-epsilon = 0.01;
+num_episodes = 5000;
+epsilon = .01;
 alpha = 0.1;
 gamma = 0.9;
 
@@ -73,11 +73,18 @@ for i = 1:mean_range:length(rewards)-mean_range
 end
 % TODO: plot rewards and mean rewards
 
-mean_reward = figure(1);
+mean_reward_plot = figure(1);
 plot(mean_diffs);
 xlabel('Episode');
 ylabel('Mean of diffs in Q');
 title('Average Max Q Diff');
+
+%4a Plot the rewards array
+reward_plot = figure(2);
+plot(rewards)
+title("Rewards");
+xlabel("episodes");
+ylabel("reward");
 
 
 %% 4. Testing

@@ -37,6 +37,7 @@ function [q_table, rewards, q_diffs] = q_learning(state_params, obstacles, goals
     %% 1. Init the q_table 
     % TODO:
     q_table = initialize_q_table(state_params); % use initialize_q_table function
+    tableVisits = initialize_q_table(state_params);
     
     rewards = []; % list that will save the episode rewards
     q_diffs = []; % list that will save q-table differences between episodes
@@ -62,8 +63,10 @@ function [q_table, rewards, q_diffs] = q_learning(state_params, obstacles, goals
             
             % update q-table
             % Task: 2 (deterministic update rule): update_q_table_det()
-            % Task: 6 (non-deterministic update rule): update_q_table_gen()
             q_table = update_q_table_det(q_table, s_current, a_current, r, s_next, gamma, state_params); 
+            
+            % Task: 6 (non-deterministic update rule): update_q_table_gen()
+            %[q_table, tableVisits] = update_q_table_gen(q_table, tableVisits, s_current, a_current,  r, s_next, gamma, state_params, alpha); 
             
             s_current = s_next;
                        

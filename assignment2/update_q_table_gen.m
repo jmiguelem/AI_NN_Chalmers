@@ -1,4 +1,4 @@
-function q_table_out = update_q_table_gen(q_table_in, s_current, a_current, alpha, r, s_next, gamma, state_params)
+function [q_table_out, tableVisits] = update_q_table_gen(q_table_in, tableVisits, s_current, a_current,  r, s_next, gamma, state_params, alpha)
 %% FUNCTIONALITY: update the q-table (general update rule which works for deterministic and non-deterministic actions)
 %% INPUT(1): q_table_in ( Q(s,a) )
 % type --> 2D - matrix (size: num_states x actions)
@@ -46,8 +46,12 @@ function q_table_out = update_q_table_gen(q_table_in, s_current, a_current, alph
     ind_cur = sub2ind([state_params(1) state_params(1) state_params(2) state_params(3)], s_current(1), s_current(2), s_current(3), s_current(4));
     % index pf next state in q_table
     ind_next = sub2ind([state_params(1) state_params(1) state_params(2) state_params(3)], s_next(1), s_next(2), s_next(3), s_next(4));
+    tableVisits(ind_cur, a_current) = tableVisits(ind_cur, a_current) + 1; 
     
     % TODO: Update the q-table
-    q_table_out ???
+    maxState = max(q_table_in(ind_next,:));
+    %alpha = 1 / (1 + tableVisits(ind_cur, a_current));
+    q_table_out = q_table_in;
+    q_table_out(ind_cur, a_current) = q_table_in(ind_cur, a_current) + alpha * (r + gamma * maxState - q_table_in(ind_cur, a_current));
 
 end

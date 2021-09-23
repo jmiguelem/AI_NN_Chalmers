@@ -49,26 +49,29 @@ function [r, s_next] = perform_one_step(s_current, a_current, goals, state_param
             
     % TODO
     obs = 0;
-    if a_current <= 4 % a_current is one of the movements (S, N, W, E)]
+    if a_current < 5 % a_current is one of the movements (S, N, W, E)]
         
-        for i=1:1:length(obstacles)
-            if (s_current(1)+a_move(1,a_current) == obstacles(1,i) && s_current(2)== obstacles(2,i)) || (s_current(1) == obstacles(1,i) && s_current(2)+a_move(2,a_current)== obstacles(2,i))
+        for o=1:1:length(obstacles)
+            if (s_current(1)+a_move(1,a_current) == obstacles(1,o) && s_current(2)== obstacles(2,o)) || (s_current(1) == obstacles(1,o) && s_current(2)+a_move(2,a_current)== obstacles(2,o))
                 obs = 1;
             end
         end
         
-        if  s_current(1)+ a_move(1,a_current) <= 0 || s_current(1)+a_move(1,a_current) > state_params(1) || s_current(2)+a_move(2,a_current) <= 0 || s_current(2)+a_move(2,a_current) > state_params(1)|| obs % check if agents would bump into wall
+        if  s_current(1)+ a_move(1,a_current) <= 0 || state_params(1) < s_current(1)+a_move(1,a_current) || s_current(2)+a_move(2,a_current) <= 0 || state_params(1) < s_current(2)+a_move(2,a_current) || obs % check if agents would bump into wall
             r = -100;
             s_next = s_current;
         else % normal 1 step reward
             r = -1;
-            s_next = [s_current(1)+a_move(1,a_current),s_current(2)+a_move(2,a_current),s_current(3),s_current(4)];
+            s_next = s_current;
+            s_next(1) = s_current(1)+a_move(1,a_current);
+            s_next(2) = s_current(2)+a_move(2,a_current);
         end
     elseif a_current == 5 % action is pick up
         if s_current(3) ~= 5
-            if s_current(1) == goals(1,s_current(3)) && s_current(2) == goals(2,s_current(3))% succesfull pickup
-                r = -1;
-                s_next = [s_current(1),s_current(2),5,s_current(4)];
+            if (s_current(1) == goals(1,s_current(3)) && s_current(2) == goals(2,s_current(3)))% succesfull pickup
+                r = 0;
+                s_next = s_current;
+                s_next(3) = 5;
             else % non-succesfull pickup
                 r = -10;
                 s_next = s_current;
@@ -77,7 +80,7 @@ function [r, s_next] = perform_one_step(s_current, a_current, goals, state_param
             r = -10;
             s_next = s_current;
         end
-    elseif a_current == 6% action is drop down
+    elseif a_current == 6 % action is drop down
         if (s_current(1) == goals(1,s_current(4)) && s_current(2) == goals(2,s_current(4))) && s_current(3) == 5% succesfull drop down
             r = 20;          
             s_next = s_current; % no next state is required since episode is finished after

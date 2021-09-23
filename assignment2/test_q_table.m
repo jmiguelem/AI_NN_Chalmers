@@ -40,11 +40,11 @@ function actions = test_q_table(q_table, s_start, goals, grid, state_params, obs
     running_reward = 0;
     while ~terminate_episode
         % TODO: choose an greedily derived action based on current state
-        a_current = ???
+        a_current = epsilon_greedy_action(q_table, s_current, 0, state_params)
         
         % TODO: perform one step update and get the next state and
         % reward (perform_one_step())
-        [r, s_next] = ???
+        [r, s_next] = perform_one_step(s_current, a_current, goals, state_params, obstacles)
         
         s_current = s_next;
         actions = [actions, a_current];
@@ -70,5 +70,5 @@ function actions = test_q_table(q_table, s_start, goals, grid, state_params, obs
 
 end
 
-
+% Reference for epsilon = 0 at line 43: https://www.geeksforgeeks.org/epsilon-greedy-algorithm-in-reinforcement-learning/
 

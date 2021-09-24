@@ -195,6 +195,8 @@ for it=1:iterations
         miO=min(O(:,1));
         maO=max(O(:,1));
         nO=(O(:,1)-miO)/(maO-miO);
+        %Usar la funcion norml para obtener el valor mas cercano
+        norm
         
         % TODO: Fit output nO into the three colors. The output nO should be fitted in
         % the 3 available solutions R,G,B. You need to find out which
@@ -202,8 +204,10 @@ for it=1:iterations
         % is closer to the estimated output vector nO and
         % assign that vector in B to the fO(:,s).
         % ?? what is ind !!!
-        %Calcular la diferencia entre no y B y despues sacar el minimo para
+        %Calcular la diferencia entre no  y B y despues sacar el minimo para
         %obtener cual vector es mas parecido
+        dif = n0 - B
+        ind = min(dif)
         fO(:,s)=B(:,ind);
 		% you will need to use "min()" which returns the minimum value and its index in a vector        
 

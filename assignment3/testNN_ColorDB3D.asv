@@ -202,8 +202,7 @@ for it=1:iterations
         % is closer to the estimated output vector nO and
         % assign that vector in B to the fO(:,s).
         % ?? what is ind !!!
-        %Calcular la diferencia entre no y B y despues sacar el minimo para
-        %obtener cual vector es mas parecido
+        
         fO(:,s)=B(:,ind);
 		% you will need to use "min()" which returns the minimum value and its index in a vector        
 

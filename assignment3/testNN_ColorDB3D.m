@@ -196,7 +196,7 @@ for it=1:iterations
         maO=max(O(:,1));
         nO=(O(:,1)-miO)/(maO-miO);
         %Usar la funcion norml para obtener el valor mas cercano
-        norm
+  
         
         % TODO: Fit output nO into the three colors. The output nO should be fitted in
         % the 3 available solutions R,G,B. You need to find out which
@@ -204,8 +204,14 @@ for it=1:iterations
         % is closer to the estimated output vector nO and
         % assign that vector in B to the fO(:,s).
         % ?? what is ind !!!
-        %Calcular la diferencia entre no  y B y despues sacar el minimo para
-        %obtener cual vector es mas parecido
+        
+        %Get the the difference for each color
+        red = norm(B(:, 1) - nO);
+        green = norm(B(:, 2) - nO);
+        blue = norm(B(:, 3) - nO);
+        
+        %getting the ind
+        [v, ind] = min([red green blue]);
         dif = n0 - B
         ind = min(dif)
         fO(:,s)=B(:,ind);
@@ -328,12 +334,22 @@ for s=1:test_size
     % the variable Tt1D that will be later used to calculate the confusion matrix 
     % matrix. Tt1D would contain the value 1 or 2 or 3.
     %?? what is ind !!!
+    red = norm(B(:, 1) - Ttl(:,s))
+    green = norm(B(:, 2) - Ttl(:,s))
+    blue = norm(B(:, 3) - Ttl(:,s))
+
+    [v, ind] = min([red green blue]);
     Tt1D(1,s)=ind; %<---- needed to build the confusion matrix
 	% HINT: using min()
     
     % TODO: same as before, but in this case you will find out which of the column vectors in B 
 	% is closer to estimated output nO(:,s) (n_o X 1) and assign the index of that column to the variable fOt1D 
     %?? what is ind !!!
+    red = norm(B(:, 1) - nO)
+    green = norm(B(:, 2) - nO)
+    blue = norm(B(:, 3) - nO)
+
+    [v, ind] = min([red green blue]);
     fOt(:,s)=B(:,ind);
     fOt1D(1,s)=ind; %<---- needed to build the confusion matrix
 	% HINT: using min() Get the wrong mat

@@ -12,17 +12,17 @@ switch type
         o=net;
         % TODO: define its time derivative (do/dnet)
         siz_o = size(o);
-        do=ones(siz_o(1),1); 
+        do=ones(siz_o); 
     case 2
         % TODO: define the sigmoid activation function (o)
-        o=(1/(1+exp(-net)));
+        o=(1./(1+exp(-net)));
         % TODO: define its time derivative (do/dnet) 
-        do=o.(1-o);
+        do=o.*(1-o);
     case 3
         % TODO: define the tanh activation function (o)
-        o=(exp(2*net)-1)/(exp(2*net)+1);
+        o=(exp(2*net)-1)./(exp(2*net)+1);
         % TODO: define its time derivative (do/dnet)
-        do=1-o^2;
+        do=1-(o.^2);
 end
 
 % HINT 1: Check the dimensions of the input: net. The partial derivative must

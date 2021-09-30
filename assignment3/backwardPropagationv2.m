@@ -66,7 +66,7 @@ DWi_h=(eta*d_h*xin')'+alpha(1)*DWi_h_1;
 
 %Update output Weights (hidden->out)
 % TODO: Update outter weights
-Wh_o=Wh_o+Dwh_o;
+Wh_o=Wh_o+DWh_o;
 
 %Update hidden Weights (input->hidden)
 % TODO: Update hidden weights

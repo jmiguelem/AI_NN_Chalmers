@@ -213,8 +213,6 @@ for it=1:iterations
         
         %getting the ind
         [v, ind] = min([red green blue]);
-        dif = n0 - B
-        ind = min(dif)
         fO(:,s)=B(:,ind);
 		% you will need to use "min()" which returns the minimum value and its index in a vector        
 

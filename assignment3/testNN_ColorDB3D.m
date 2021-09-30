@@ -67,6 +67,7 @@ Xr=DataS(1:3,:);
 Tr=DataS(4:6,:);
 
 %Adding bias x0 to the beginning of the input vector
+sXr=size(Xr);
 Xr=[ones(1,sXr(2));Xr];
 
 % size of input and output of training data
@@ -81,7 +82,7 @@ Xt=db.xte;
 
 % TODO:Adding bias value to the beginning of the input vector of test data
 % The original size of Xt is 3 x n, after adding the bias the new Xt is of size 4 x n 
-[r,c] = size(Xt)
+[r,c] = size(Xt);
 bias = ones([1 c]);
 Xt= [bias; Xt];
 
@@ -95,8 +96,8 @@ Tt=db.ote;
 % n_i = number of features (inputs) + bias      Xt,Xr
 % n_o = number of outputs       Tt, Tr
 % TODO: Define n_i, and n_o
-n_i = sXr(2);
-n_o = sTr(2);
+n_i = 4;
+n_o = 3;
 
 %Get the size of the training samples
 n_s=sXr(2);
@@ -112,8 +113,8 @@ end
 % First case: af1=3 and af2=3 (both activation function are tanh).
 % Second case: af1=3 and af2=1 (hidden layer -> tanh, outter layer -> linear)
 % These variables are input arguments of the functions: back and forward-propagation functions
-af1=activation_function(1)
-af2=activation_function(2)
+af1=activation_function(3)
+af2=activation_function(3)
 
 %% Learning rate for the hidden eta(1) and the outter eta(2) layers
 eta=learning_rate;
@@ -182,8 +183,7 @@ for it=1:iterations
         % Backward propagation of errors (out->hidden->xin)
         % Estimate the new weights (Wi_h, Wh_o) and its increments
         % TODO: Complete this function
-        [Wi_h,Wh_o,e2,DWi_h_1,DWh_o_1]=backwardPropagationv2(Wi_h,Wh_o,...
-            ,xin,H,O,to,eta,alpha,DWi_h_1,DWh_o_1);
+        [Wi_h,Wh_o,e2,DWi_h_1,DWh_o_1]=backwardPropagationv2(Wi_h,Wh_o,xin,H,O,to,eta,alpha,DWi_h_1,DWh_o_1);
         
         % Accumulated Error (1,1)
         et=et+e2;

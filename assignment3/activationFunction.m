@@ -9,19 +9,20 @@ function [o, do] = activationFunction(net, type)
 switch type
     case 1
         % TODO: define the linear activation function (o)
-        o=??
+        o=net;
         % TODO: define its time derivative (do/dnet)
-        do=??
+        siz_o = size(o);
+        do=ones(siz_o(1),1); 
     case 2
         % TODO: define the sigmoid activation function (o)
-        o=??
+        o=(1/(1+exp(-net)));
         % TODO: define its time derivative (do/dnet) 
-        do=??
+        do=o.(1-o);
     case 3
         % TODO: define the tanh activation function (o)
-        o=??
+        o=(exp(2*net)-1)/(exp(2*net)+1);
         % TODO: define its time derivative (do/dnet)
-        do=??
+        do=1-o^2;
 end
 
 % HINT 1: Check the dimensions of the input: net. The partial derivative must

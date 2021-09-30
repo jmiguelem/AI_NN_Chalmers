@@ -41,36 +41,36 @@ do_dnet=O(:,2); % (n_o X 1)
 %(n_o X 1)=(n_o X 1)-(n_o X 1)
 
 % TODO: define the estimation error in outter layer
-e=?????
+e=to-O(:,1);
 
 %(n_o X 1) = (n_o X 1).*(n_o X 1)
 % TODO: Compute \delta_k
-d_k=??
+d_k=e.*do_dnet;
 
 %Backward propagation of errors (hidden->input)
 %(n_h X 1) = (n_h X 1).*(n_h X n_o)*(n_o X 1)
 % TODO: Compute \delta_h
-d_h=??
+d_h=dh_dnet.*Wh_o*d_k;
   
 %delta output weights (hidden->out)
 %(n_h X n_o)=((1 X 1)*(n_o X 1)*(1 X n_h))'+ (1 X 1)*(n_h X n_o)
 %TODO: Compute the increment for Wh_o (outter layer weights)
 % Remember to use the learning rate and the momemtum gain 
-DWh_o=??
+DWh_o=(eta*d_k*h')'+alpha(2)*DWh_o_1;
 
 %delta hidden weights (input->hidden)
 %(n_i X n_h)=((1 X 1)*(n_h X 1)*(1 X n_i))'+ (1 X 1)*(n_i X n_h)
 %TODO: Compute the increment for Wi_h (hidden layer weights)
 % Remember to use the learning rate and the momemtum gain 
-DWi_h=??
+DWi_h=(eta*d_h*xin')'+alpha(1)*DWi_h_1;
 
 %Update output Weights (hidden->out)
 % TODO: Update outter weights
-Wh_o=Wh_o+??
+Wh_o=Wh_o+Dwh_o;
 
 %Update hidden Weights (input->hidden)
 % TODO: Update hidden weights
-Wi_h=Wi_h+??
+Wi_h=Wi_h+DWi_h;
 
 %Error
 % The (.) operator implements an operation element-wise, e.g.,

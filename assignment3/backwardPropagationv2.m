@@ -41,7 +41,7 @@ do_dnet=O(:,2); % (n_o X 1)
 %(n_o X 1)=(n_o X 1)-(n_o X 1)
 
 % TODO: define the estimation error in outter layer
-e=to-O(:,1);
+e=to-o;
 
 %(n_o X 1) = (n_o X 1).*(n_o X 1)
 % TODO: Compute \delta_k

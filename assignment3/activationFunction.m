@@ -11,7 +11,7 @@ switch type
         % TODO: define the linear activation function (o)
         o=net;
         % TODO: define its time derivative (do/dnet)
-        siz_o = size(o);
+        siz_o = size(net);
         do=ones(siz_o); 
     case 2
         % TODO: define the sigmoid activation function (o)

@@ -45,17 +45,15 @@ Xr=db.xtr;
 Tr=db.otr;
 % TODO: We need to change the range of the output from [1 0 0], [0 1 0], or [0 0 1], 
 % to [0.9 0.1 0.1], [0.1 0.9 0.1] and [0.1 0.1 0.9].
-disp(Tr);
-
-for i = 1:length(Tr)
-    if Tr(i) == 0
-        Tr(i) = 0.1;
-    end
-    if Tr(i) == 1
-        Tr(i) = 0.9;
-    end
-end
-disp(Tr);
+Tr=0.1+(0.9-0.1)*Tr;
+% for i = 1:length(Tr)
+%     if Tr(i) == 0
+%         Tr(i) = 0.1;
+%     end
+%     if Tr(i) == 1
+%         Tr(i) = 0.9;
+%     end
+% end
 
 % Shuffle the training data
 Data=[Xr;Tr];
@@ -67,9 +65,7 @@ Xr=DataS(1:3,:);
 Tr=DataS(4:6,:);
 
 %Adding bias x0 to the beginning of the input vector
-
-sXr = size(Xr)
-
+sXr = size(Xr);
 Xr=[ones(1,sXr(2));Xr];
 
 % size of input and output of training data
@@ -115,8 +111,8 @@ end
 % First case: af1=3 and af2=3 (both activation function are tanh).
 % Second case: af1=3 and af2=1 (hidden layer -> tanh, outter layer -> linear)
 % These variables are input arguments of the functions: back and forward-propagation functions
-af1=activation_function(3)
-af2=activation_function(3)
+af1=activation_function(1)
+af2=activation_function(2)
 
 %% Learning rate for the hidden eta(1) and the outter eta(2) layers
 eta=learning_rate;

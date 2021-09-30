@@ -15,7 +15,7 @@ function [O,H] = forwardPropagationv2(Wi_h,Wh_o,xin,af1,af2)
 % Hidden nodes h (input->hidden)
 % (n_h X 1)   (n_h X n_i)*(n_i X 1)
 % TODO: Compute the net_h
-net_h=Wi_h.' * xin;  
+net_h=Wi_h'*xin;  
 
 %n_h X 1  n_h X 1
 % h     dh_dnet
@@ -28,7 +28,7 @@ H(1,1)=1;
 %Output nodes o (hidden->out) and partial derivative of o wrt net
 % (n_o X 1)  (n_o X n_h)*(n_h X 1)
 % TODO: Compute net_o
-net_o=Wh_o.'*H(:,1);
+net_o=Wh_o'*H(:,1);
 
 
 

@@ -31,7 +31,15 @@ function val = ga_eval(ind)
     % sim_error is an array with all the integrals of the position error
       
     % val must be a single and negative float
-    val=?????;
+    w1 = 1;
+    w2 = 1;
+    w3 = 1;
+    ISE = trapz(sim_error.Time(:,1),sim_error.Data(:,1).^2);
+    IAE = trapz(sim_error.Time(:,1),abs(sim_error.Data(:,1)));
+    ITAE = trapz(sim_error.Time(:,1), sim_error.Time(:,1).* abs(sim_error.Data(:,1)));
+    
+    
+    val=-(w1*ISE + w2*IAE + w3*ITAE);
     
     
 end

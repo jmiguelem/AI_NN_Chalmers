@@ -7,9 +7,9 @@ function [bestInd,bestFit]=genetic_algorithm()
     addpath('Pendulum');
 
     %TODO: Define the maximum population
-    maxPop=???;
+    maxPop=10;
     %TODO: Define the number of generations
-    generations=???;
+    generations=100;
     
     % First, create an initial random population
     % population will be an array of struct 'individual'
@@ -26,7 +26,9 @@ function [bestInd,bestFit]=genetic_algorithm()
         % individual.p=rand()*maxValue;
         % individual.d=rand()*maxValue;
         % TODO: You need to define the maximum value for each gain
-        
+        maxValue=1000;
+        individual.p=rand()*maxValue;
+        individual.d=rand()*maxValue;
         
         % append the newly created individual to the array 'population'
         population=[population individual];
@@ -93,7 +95,7 @@ function [bestInd,bestFit]=genetic_algorithm()
             child=crossover(ind1,ind2);
             
             %TODO: Define a mutation probability between [0-1]
-            mutP=?????;
+            mutP=0.5;
             
             %randomly execute the mutation, e.g. if rand() is lower than the
             %given threshold then mutate child.

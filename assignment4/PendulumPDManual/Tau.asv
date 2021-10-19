@@ -34,7 +34,10 @@ Dq= qd - q;
 Dqp= qdp - qp;
 
 % TODO: Implement a PD controller using Dq, Dqp and gains (Kp, Kd)
-tau = Dq * Kp + Dqp * Kd;
+tau = Dq * Kp + Dqp * 
+
+deltaq = qd - q;
+tau = (tg + ta + tb) + deltaq * Kp;
 
 %output
 tau_output=[tau;Dq];

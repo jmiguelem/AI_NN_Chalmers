@@ -18,11 +18,11 @@ y = db.y;
 tol = 0.0001;  %--set a tolerance value for the accuracy, DO NOT CHANGE IT
 
 % TODO: Try with different learning rate lamda, e.g., 0.5, 0.2, 0.1, 0.05, 0.001 ...
-lamda = ???;  %--set a learning rate for incrementing 'a'
+lamda = 0.1;  %--set a learning rate for incrementing 'a'
 a = [0.01, 0.28, 0.12];  %-- set initial guess for [m, l, beta]. You're free to set a new inital guess or just leave it as it is
 
 % TODO: Try with different iteration numbers iter_max, e.g., 30, 40, 50 ,70, 80, 100, 150 so on ...
-iter_max = ???;  %--set maximum iteration number to run for
+iter_max = 50;  %--set maximum iteration number to run for
 n = length(x);  %--number of data samples, each sample contains [q, qp, qpp]   
 
 I = 0.04;  %-- inertial coefficient
@@ -39,25 +39,25 @@ for iter = 1:iter_max
     beta = a(3);  %-- viscous friction coefficient 
     for i = 1:n
 		% predicted tau value, you need 'qpp(i)', 'qp(i)' and 'q(i)'
-        f(i) = ???;
+        f(i) = (m*l^2+I)*qpp(i) + beta*qp(i) + m*g*l*sin(q(i));
         
 		%% A should be a n x 3 matrix, n stands for the number of samples, 
         % each row contains a partial derivative of tau w.r.t --> m, l and beta
         % calculate partial derivative of tau (CHECK THE DOCUMENT OF ASSIGNMENT 4 FOR what tau is) w.r.t. 'm', you need given 'qpp(i)' and 'q(i)'
-		A(i, 1) = ???;
+		A(i, 1) = l^2*qpp(i) + g*l*sin(q(i));
 		
 		% calculate partial derivative of tau w.r.t. 'l', you need 'qpp(i)' and 'q(i)'
-        A(i, 2) = ???;
+        A(i, 2) = 2*m*l*qpp(i) + m*g*sin(q(i));
 		
 		% calculate partial derivative of tau w.r.t. 'beta', you need 'qp(i)'
-        A(i, 3) = ???;
+        A(i, 3) = qp(i);
 		
 		% calculate residual given real tau value 'y(i)' and predicted tau value 'f(i)'
         e(i) = y(i) - f(i);
     end
 	
 	% calculate increment 'Delta_a' for 'a': [m, l, beta]
-    Delta_a = ???; 
+    Delta_a = inv(A'*A)*A'
 	% display 
 	fprintf(1,'iteration: %d\n', iter);
     fprintf(1,'m, l, beta: \n');

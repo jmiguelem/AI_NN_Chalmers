@@ -23,11 +23,6 @@ qd=deg2rad(u(14));
 qdp=0;
 
 % TODO: Joint position error
-m = u(4);
-g = u(6);
-l = u(3);
-
-tg = m * g * l * sin(q);
 Dq= qd - q;
 
 % TODO: Joint velocity error

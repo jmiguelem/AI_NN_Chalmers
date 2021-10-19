@@ -6,6 +6,6 @@ function child = crossover(ind1,ind2)
    
     %The crossover can be at the level of gain values, e.g.
     %child.p=value_generated_with_the_parents  
-    child.p=parents[randi(2)](1);  % float value
-    child.d=parents[randi(2)](2);  % float value
+    child.p=parents(randi(2)).p;  % float value
+    child.d=parents(randi(2)).d;  % float value
 end

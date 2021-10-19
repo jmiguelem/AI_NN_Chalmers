@@ -18,11 +18,11 @@ y = db.y;
 tol = 0.0001;  %--set a tolerance value for the accuracy, DO NOT CHANGE IT
 
 % TODO: Try with different learning rate lamda, e.g., 0.5, 0.2, 0.1, 0.05, 0.001 ...
-lamda = 0.1;  %--set a learning rate for incrementing 'a'
+lamda = 0.05;  %--set a learning rate for incrementing 'a'
 a = [0.01, 0.28, 0.12];  %-- set initial guess for [m, l, beta]. You're free to set a new inital guess or just leave it as it is
 
 % TODO: Try with different iteration numbers iter_max, e.g., 30, 40, 50 ,70, 80, 100, 150 so on ...
-iter_max = 50;  %--set maximum iteration number to run for
+iter_max = 200;  %--set maximum iteration number to run for
 n = length(x);  %--number of data samples, each sample contains [q, qp, qpp]   
 
 I = 0.04;  %-- inertial coefficient
@@ -57,7 +57,7 @@ for iter = 1:iter_max
     end
 	
 	% calculate increment 'Delta_a' for 'a': [m, l, beta]
-    Delta_a = inv(A'*A)*A'
+    Delta_a = inv(A'*A)*A'.*e;
 	% display 
 	fprintf(1,'iteration: %d\n', iter);
     fprintf(1,'m, l, beta: \n');

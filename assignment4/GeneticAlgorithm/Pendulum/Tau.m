@@ -22,13 +22,13 @@ qd=deg2rad(u(15));
 qdp=0;
 
 % TODO: Joint position error
-Dq=???;
+Dq=qd-q;
 
 % TODO: Joint velocity error
-Dqp=???;
+Dqp=qdp-qp;
 
 % TODO: Implement a PD controller using Dq, Dqp and gains (Kp, Kd)
-tau=???;
+tau=Kp*Dq + Kd*Dqp;
 
 %output
 tau_output=[tau;Dq];

@@ -7,9 +7,9 @@ function [bestInd,bestFit]=genetic_algorithm()
     addpath('Pendulum');
 
     %TODO: Define the maximum population
-    maxPop=3;
+    maxPop=5;
     %TODO: Define the number of generations
-    generations=1;
+    generations=10;
     
     % First, create an initial random population
     % population will be an array of struct 'individual'
